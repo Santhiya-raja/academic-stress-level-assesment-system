@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with correct backend URL
 const api = axios.create({
-    baseURL: 'http://localhost:5001/api',  // ✅ FIXED
+    baseURL: "https://academic-stress-level-assessment-system.onrender.com";  // ✅ FIXED
     headers: { 'Content-Type': 'application/json' },
 });
 
