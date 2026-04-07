@@ -1,6 +1,3 @@
-// ============================================
-// Express Server — Entry Point
-// ============================================
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -8,7 +5,10 @@ const cors = require('cors');
 const app = express();
 
 // ---- Middleware ----
-app.use(cors());
+app.use(cors({
+  origin: "https://academic-stress-level-assessment-system-cpk8ze2j8.vercel.app",
+  credentials: true
+}));
 app.use(express.json());
 
 // ---- Health Check ----
@@ -31,7 +31,8 @@ app.use((err, req, res, next) => {
 });
 
 // ---- Start Server ----
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
+
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
