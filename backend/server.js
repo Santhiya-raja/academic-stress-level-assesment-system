@@ -5,16 +5,15 @@ const cors = require('cors');
 const app = express();
 
 // ---- Middleware ----
-app.use(cors({
-  origin: true,   // ✅ allows all Vercel deployments
-  credentials: true
+aapp.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
-app.use(express.json());
 
-// ---- Health Check ----
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
+// ✅ VERY IMPORTANT (preflight handling)
+app.options('*', cors());
 
 // ---- Routes ----
 app.use('/api/auth', require('./routes/auth'));
