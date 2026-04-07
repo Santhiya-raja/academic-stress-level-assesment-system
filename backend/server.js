@@ -6,7 +6,7 @@ const app = express();
 
 // ---- Middleware ----
 app.use(cors({
-  origin: "https://academic-stress-level-assessment-system-cpk8ze2j8.vercel.app",
+  origin: true,   // ✅ allows all Vercel deployments
   credentials: true
 }));
 app.use(express.json());
