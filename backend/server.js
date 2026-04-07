@@ -4,16 +4,24 @@ const cors = require('cors');
 
 const app = express();
 
-// ---- Middleware ----
-aapp.use(cors({
-  origin: true,
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// 🔥 FORCE CORS HEADERS (VERY IMPORTANT)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 
-// ✅ VERY IMPORTANT (preflight handling)
-app.options('*', cors());
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+// ✅ CORS middleware
+app.use(cors());
+
+// ✅ JSON middleware (IMPORTANT)
+app.use(express.json());
 
 // ---- Routes ----
 app.use('/api/auth', require('./routes/auth'));
